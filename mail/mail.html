@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<style>
+.container {
+	font-family: sans-serif;	
+}
+
+	.top-margin {
+		/*margin-top: 40px;	*/
+	}
+.logo {
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #fff;
+	background-color: #4286f4;
+	border: 2px solid #fff;
+	border-radius: 5px;
+}
+.jumbotron {
+	background-color: #333;
+	color: #fff;
+}
+
+
+</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="container top-margin">
+	<div class="jumbotron">
+	<h1 class="titre1"><span class="logo">B</span>Bootstrap 4 Formulaires</h1>
+	<p>Formulaire</p>
+		<p>Création de formulaire pour envoi d'un email</p>
+	</div>
+<form id="myform" method="post" action="mail.php" onsubmit="sendmail();return false;">
+<div class="form-group row">
+  <label for="example-text-input" class="col-2 col-form-label">Nom</label>
+  <div class="col-10">
+    <input class="form-control" type="text" placeholder="ex: John Doe" id="nom" name="nom" required>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="example-email-input" class="col-2 col-form-label">Email</label>
+  <div class="col-10">
+    <input class="form-control" type="email" placeholder="ex: bootstrap@example.com" id="email" name="email" required>
+  </div>
+</div>
+<div class="form-group row"> 
+		<label class="control-label col-2 col-form-label " for="message">Message</label>
+	<div class="col-10">
+		<textarea class="form-control" cols="40" id="message" name="message" rows="10" required></textarea>
+	</div>
+</div>
+<div class="form-group row"> <!-- Message field -->
+<div class="col-2"></div>
+<div class="col-2">
+  <button type="submit" style="color:white;" id="submit-btn" class="form-control btn btn-default bg-success">Envoyer</button>
+</div>
+<div id="ackmsg" class="col-8"></div>
+	
+</div>
+</form>
+
+</div>
+<script>
+
+function sendmail(){
+$("#submit-btn").attr("disabled", "disabled");
+$("#ackmsg").html("<img src='images/waiting.gif' style='width:40px;'>");
+
+var nom = $("#nom").val();
+var email = $("#email").val();
+var message = $("#message").val();
+$.ajax({
+	
+                    type : "POST",
+                    url: "mail.php",
+                    data: 'nom='+nom+'&email='+email+'&message='+message,
+                    success: function(reponse) {
+                    	console.log(reponse);
+                    	if(reponse=="ok"){
+                    		$("#ackmsg").html("<span style='color:green'>Votre email a bien été envoyé</span>");
+							$("#nom").val("");
+							$("#email").val("");
+							$("#message").val("");
+							$("#submit-btn").removeAttr("disabled", "disabled");
+                    	}
+                    },
+                    error: function() {
+                        $("#ackmsg").html(reponse);
+                    }
+                });
+}
+</script>
+</body>
+</html>

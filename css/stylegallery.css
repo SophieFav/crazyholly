@@ -1,0 +1,37 @@
+
+.link{
+    width:80%;
+}
+.rounded-circle{
+    width:85%;
+    text-align:center;
+}
+
+span.page-link{
+    border:none; 
+    color: #fff; 
+    background-color: #000; 
+    text-transform: uppercase;     
+    display: block;
+    transition: all 0.5s ease;
+}
+span.page-link:hover{
+    background-color:#747474;
+    color:#000;
+    transition: all 0.5s ease;
+}
+
+div.col-xs-6, div.col-md-3, div.col-lg-2{
+    margin-bottom:10px;
+    width: 50%;
+}
+
+
+@media screen and (max-width: 576px) {
+
+    .link{
+        width: 50%;
+    }    
+
+
+}
